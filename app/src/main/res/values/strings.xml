@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Karlos Restaurant</string>
     <string name="hint_sign_in">SIGN IN</string>
+
+    <string name="FACEBOOK_APP_ID">399280294017306</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">454017756fc0cacdaf25474d0d9f2c40</string>
 </resources>

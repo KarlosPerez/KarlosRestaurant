@@ -28,4 +28,7 @@ dependencies {
 
     //FlexBox
     implementation 'com.google.android:flexbox:1.1.0'
+
+    //Facebook Account Kit
+    implementation 'com.facebook.android:account-kit-sdk:5.+'
 }
