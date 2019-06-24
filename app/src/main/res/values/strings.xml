@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AndroidKarlosRestaurant</string>
+    <string name="app_name">Karlos Restaurant</string>
+    <string name="hint_sign_in">SIGN IN</string>
 </resources>
