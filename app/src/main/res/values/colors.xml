@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">@color/colorPrimary</color>
     <color name="colorAccent">#FF7B65</color>
     <color name="button_color">@color/colorPrimary</color>
+    <color name="divider">#F7F5F4</color>
 </resources>
