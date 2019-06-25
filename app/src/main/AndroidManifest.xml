@@ -29,7 +29,7 @@
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreen.View.SplashScreen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
