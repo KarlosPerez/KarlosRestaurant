@@ -13,6 +13,7 @@ import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -34,24 +35,30 @@ public class SplashScreenRepositoryImpl implements SplashScreenRepository {
 
     @Override
     public void getUserInformation(Account account) {
-        compositeDisposable.add(iRestaurantAPI.getUser(Common.API_KEY, account.getId())
+        Disposable disposable = iRestaurantAPI.getUser(Common.API_KEY, account.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<UserModel>() {
-                    @Override
-                    public void accept(UserModel userModel) throws Exception {
-                        if(userModel.isSuccess()) {
-                            Common.currentUser = userModel.getResult().get(0);
-                            splashScreenPresenter.goToActivity(Common.currentUser, HomeActivity.class);
-                        } else {
-                            splashScreenPresenter.goToActivity(Common.currentUser, MainActivity.class);
-                        }
+                .subscribe(userModel -> {
+                    if(userModel.isSuccess()) {
+                        Common.currentUser = userModel.getResult().get(0);
+                        splashScreenPresenter.goToActivity(Common.currentUser, HomeActivity.class);
+                    } else {
+                        splashScreenPresenter.goToActivity(Common.currentUser, MainActivity.class);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        splashScreenPresenter.showThrowableMessage("[GET USER API]");
-                    }
-                }));
+                }, throwable -> splashScreenPresenter.showThrowableMessage("[GET USER API]"));
+        bindToLifeCycle(disposable);
+    }
+
+    @Override
+    public void detachDisposable() {
+        compositeDisposable.clear();
+    }
+
+    /**
+     * Binds a disposable to this presenter lifecycle
+     * @param disposable Disposable to be added
+     */
+    private void bindToLifeCycle(Disposable disposable) {
+        compositeDisposable.add(disposable);
     }
 }

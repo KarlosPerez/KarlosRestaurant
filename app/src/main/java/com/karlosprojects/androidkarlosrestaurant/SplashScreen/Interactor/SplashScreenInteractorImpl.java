@@ -19,4 +19,9 @@ public class SplashScreenInteractorImpl implements SplashScreenInteractor {
     public void getUserInformation(Account account) {
         splashScreenRepository.getUserInformation(account);
     }
+
+    @Override
+    public void detachDisposable() {
+        splashScreenRepository.detachDisposable();
+    }
 }

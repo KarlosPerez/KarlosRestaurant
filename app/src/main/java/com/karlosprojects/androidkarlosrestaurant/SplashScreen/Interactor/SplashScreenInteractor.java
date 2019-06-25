@@ -4,4 +4,5 @@ import com.facebook.accountkit.Account;
 
 public interface SplashScreenInteractor {
     void getUserInformation(Account account);
+    void detachDisposable();
 }

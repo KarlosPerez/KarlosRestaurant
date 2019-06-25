@@ -2,7 +2,6 @@ package com.karlosprojects.androidkarlosrestaurant.SplashScreen.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import dmax.dialog.SpotsDialog;
-import io.reactivex.disposables.CompositeDisposable;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -14,10 +13,8 @@ import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
-import com.karlosprojects.androidkarlosrestaurant.HomeActivity.HomeActivity;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.User;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.View.MainActivity;
-import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter.SplashScreenPresenter;
 import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter.SplashScreenPresenterImpl;
 import com.karumi.dexter.Dexter;
@@ -35,10 +32,17 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        init();
+        initComponents();
         handleDevicePermissions();
         delaySplashScreen();
+    }
+
+    private void initComponents() {
+        splashScreenPresenter = new SplashScreenPresenterImpl(this);
+        alertDialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setCancelable(false)
+                .build();
     }
 
     private void delaySplashScreen() {
@@ -57,7 +61,6 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-
                         AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                             @Override
                             public void onSuccess(Account account) {
@@ -67,7 +70,7 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
 
                             @Override
                             public void onError(AccountKitError accountKitError) {
-                                showErrorMessage("Not Sign in! Please sign in");
+                                showErrorMessage("Not Signed in! Please sign in");
                                 startActivity(new Intent(SplashScreen.this, MainActivity.class));
                                 finish();
                             }
@@ -80,18 +83,8 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
                     }
 
                     @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                    }
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {}
                 }).check();
-    }
-
-    private void init() {
-        splashScreenPresenter = new SplashScreenPresenterImpl(this);
-        alertDialog = new SpotsDialog.Builder()
-                .setContext(this)
-                .setCancelable(false)
-                .build();
     }
 
     @Override
@@ -114,11 +107,22 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
 
     @Override
     public void showErrorMessage(String message) {
+        alertDialog.dismiss();
         Toast.makeText(SplashScreen.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showThrowableMessage(String message) {
+        alertDialog.dismiss();
         Toast.makeText(SplashScreen.this, message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (splashScreenPresenter != null) {
+            splashScreenPresenter.detachDisposable();
+        }
+    }
+
 }

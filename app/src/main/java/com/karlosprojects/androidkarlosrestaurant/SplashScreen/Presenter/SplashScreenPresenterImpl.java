@@ -33,4 +33,9 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter {
         splashScreenView.showThrowableMessage(message);
     }
 
+    @Override
+    public void detachDisposable() {
+        splashScreenInteractor.detachDisposable();
+    }
+
 }

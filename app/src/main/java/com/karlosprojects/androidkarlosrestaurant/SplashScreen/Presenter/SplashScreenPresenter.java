@@ -11,4 +11,6 @@ public interface SplashScreenPresenter {
     void goToActivity(User currentUser, Class<?> activityClass);
 
     void showThrowableMessage(String message);
+
+    void detachDisposable();
 }
