@@ -10,4 +10,6 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="textView_textSize_24sp">24sp</dimen>
+    <dimen name="just_1dp">1dp</dimen>
 </resources>

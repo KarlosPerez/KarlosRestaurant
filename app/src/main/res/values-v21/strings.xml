@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_user_information">User Information</string>
+    <string name="hint_user_name">Name</string>
+    <string name="hint_user_address">Address</string>
+    <string name="hint_update">UPDATE</string>
+</resources>
