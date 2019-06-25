@@ -1,4 +1,4 @@
-package com.karlosprojects.androidkarlosrestaurant;
+package com.karlosprojects.androidkarlosrestaurant.MainActivity.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +17,16 @@ import com.facebook.accountkit.LoginResult;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
+import com.karlosprojects.androidkarlosrestaurant.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityView {
 
     private static final int APP_REQUEST_CODE = 1234;
     @BindView(R.id.btn_sign_in)
     Button btn_sign_in;
 
     @OnClick(R.id.btn_sign_in)
-    void loginUser() {
+    public void loginUser() {
         Intent intent = new Intent(this, AccountKitActivity.class);
         AccountKitConfiguration.AccountKitConfigurationBuilder builder =
                 new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Success Login", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
