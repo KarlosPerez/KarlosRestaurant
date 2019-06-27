@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface IRestaurantAPI {
     @GET("user")
     Observable<UserModel> getUser(@Query("key") String apiKey,
-                                  @Query("userPhone") String userPhone);
+                                  @Query("fbid") String fbid);
 
     @POST("user")
     @FormUrlEncoded
