@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UpdateInfoActivity"></activity>
         <activity
-            android:name=".HomeActivity.HomeActivity"
+            android:name=".HomeActivity.view.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
 

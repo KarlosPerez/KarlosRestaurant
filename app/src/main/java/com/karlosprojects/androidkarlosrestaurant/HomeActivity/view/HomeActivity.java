@@ -1,14 +1,18 @@
-package com.karlosprojects.androidkarlosrestaurant.HomeActivity;
+package com.karlosprojects.androidkarlosrestaurant.HomeActivity.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.facebook.accountkit.AccountKit;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.karlosprojects.androidkarlosrestaurant.MainActivity.View.MainActivity;
 import com.karlosprojects.androidkarlosrestaurant.R;
+import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -86,22 +90,21 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_log_out) {
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+        Common.currentUser = null;
+        AccountKit.logOut();
+        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
