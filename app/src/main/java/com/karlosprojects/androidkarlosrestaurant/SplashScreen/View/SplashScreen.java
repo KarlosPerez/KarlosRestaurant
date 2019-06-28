@@ -64,7 +64,7 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
                         AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                             @Override
                             public void onSuccess(Account account) {
-                                alertDialog.show();
+                                showProgressDialog();
                                 getUserInformation(account);
                             }
 
@@ -94,12 +94,12 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
 
     @Override
     public void goToActivity(User currentUser, Class<?> activityClass) {
-        alertDialog.dismiss();
         Intent intent = new Intent(SplashScreen.this, activityClass);
         startActivity(intent);
         finish();
     }
 
+    ////////////////////////////////////////////////////////////////////////////
     @Override
     public void showSuccessMessage(String message) {
 
@@ -107,16 +107,30 @@ public class SplashScreen extends AppCompatActivity implements SplashScreenView 
 
     @Override
     public void showErrorMessage(String message) {
-        alertDialog.dismiss();
         Toast.makeText(SplashScreen.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showThrowableMessage(String message) {
-        alertDialog.dismiss();
         Toast.makeText(SplashScreen.this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showProgressDialog() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        alertDialog.dismiss();
+    }
+
+    @Override
+    public boolean isProgressDialogShowing() {
+        return alertDialog.isShowing();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onDestroy() {
         super.onDestroy();

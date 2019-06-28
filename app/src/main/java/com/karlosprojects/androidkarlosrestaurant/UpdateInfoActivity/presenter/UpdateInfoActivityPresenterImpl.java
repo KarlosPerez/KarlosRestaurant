@@ -23,6 +23,7 @@ public class UpdateInfoActivityPresenterImpl implements UpdateInfoActivityPresen
 
     @Override
     public void goToActivity(User currentUser, Class<?> activityClass) {
+        if(isProgressDialogShowing()) updateInfoActivityView.hideProgressDialog();
         updateInfoActivityView.goToActivity(currentUser, activityClass);
     }
 
@@ -33,11 +34,28 @@ public class UpdateInfoActivityPresenterImpl implements UpdateInfoActivityPresen
 
     @Override
     public void showUnsuccessMessage(String message) {
+        if(isProgressDialogShowing()) updateInfoActivityView.hideProgressDialog();
         updateInfoActivityView.showUnsuccessMessage(message);
     }
 
     @Override
     public void showThrowableMessage(String message) {
+        if(isProgressDialogShowing()) updateInfoActivityView.hideProgressDialog();
         updateInfoActivityView.showThrowableMessage(message);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        updateInfoActivityView.showProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        updateInfoActivityView.hideProgressDialog();
+    }
+
+    @Override
+    public boolean isProgressDialogShowing() {
+        return updateInfoActivityView.isProgressDialogShowing();
     }
 }

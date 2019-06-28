@@ -37,9 +37,7 @@ import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 
 public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoActivityView {
 
-    IRestaurantAPI iRestaurantAPI;
-    CompositeDisposable compositeDisposable;
-    AlertDialog dialog;
+    AlertDialog alertDialog;
     UpdateInfoActivityPresenter updateInfoActivityPresenter;
 
     @BindView(R.id.edt_user_name)
@@ -53,7 +51,9 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
 
     @Override
     protected void onDestroy() {
-        updateInfoActivityPresenter.detachDisposable();
+        if(updateInfoActivityPresenter != null) {
+            updateInfoActivityPresenter.detachDisposable();
+        }
         super.onDestroy();
     }
 
@@ -66,6 +66,7 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
         btn_update.setOnClickListener(v -> AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
             @Override
             public void onSuccess(Account account) {
+                showProgressDialog();
                 updateUserInfo(
                         account,
                         edt_user_name.getText().toString(),
@@ -112,6 +113,21 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
     }
 
     @Override
+    public void showProgressDialog() {
+        alertDialog.show();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        alertDialog.dismiss();
+    }
+
+    @Override
+    public boolean isProgressDialogShowing() {
+        return alertDialog.isShowing();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
@@ -124,7 +140,7 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
     private void initComponents() {
         ButterKnife.bind(this);
         updateInfoActivityPresenter = new UpdateInfoActivityPresenterImpl(this);
-        dialog = new SpotsDialog.Builder()
+        alertDialog = new SpotsDialog.Builder()
                 .setCancelable(false)
                 .setContext(this)
                 .build();

@@ -13,4 +13,8 @@ public interface UpdateInfoActivityView {
     void showUnsuccessMessage(String message);
     void showErrorMessage(String message);
     void showThrowableMessage(String message);
+
+    void showProgressDialog();
+    void hideProgressDialog();
+    boolean isProgressDialogShowing();
 }

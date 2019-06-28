@@ -10,4 +10,8 @@ public interface SplashScreenPresenter {
     void showThrowableMessage(String message);
 
     void detachDisposable();
+
+    void showProgressDialog();
+    void hideProgressDialog();
+    boolean isProgressDialogShowing();
 }

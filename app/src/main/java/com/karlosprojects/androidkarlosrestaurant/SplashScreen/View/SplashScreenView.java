@@ -10,4 +10,8 @@ public interface SplashScreenView {
     void showSuccessMessage(String message);
     void showErrorMessage(String message);
     void showThrowableMessage(String message);
+
+    void showProgressDialog();
+    void hideProgressDialog();
+    boolean isProgressDialogShowing();
 }

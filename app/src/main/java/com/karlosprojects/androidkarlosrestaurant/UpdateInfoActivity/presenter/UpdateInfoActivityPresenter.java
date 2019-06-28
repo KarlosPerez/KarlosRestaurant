@@ -11,4 +11,8 @@ public interface UpdateInfoActivityPresenter {
 
     void showUnsuccessMessage(String message);
     void showThrowableMessage(String message);
+
+    void showProgressDialog();
+    void hideProgressDialog();
+    boolean isProgressDialogShowing();
 }

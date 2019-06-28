@@ -20,17 +20,34 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter {
 
     @Override
     public void getUserInformation(Account account) {
+        if(isProgressDialogShowing()) splashScreenView.hideProgressDialog();
         splashScreenInteractor.getUserInformation(account);
     }
 
     @Override
     public void goToActivity(User currentUser, Class<?> activityClass) {
+        if(isProgressDialogShowing()) splashScreenView.hideProgressDialog();
         splashScreenView.goToActivity(currentUser, activityClass);
     }
 
     @Override
     public void showThrowableMessage(String message) {
         splashScreenView.showThrowableMessage(message);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        splashScreenView.showProgressDialog();
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        splashScreenView.hideProgressDialog();
+    }
+
+    @Override
+    public boolean isProgressDialogShowing() {
+        return splashScreenView.isProgressDialogShowing();
     }
 
     @Override
