@@ -5,7 +5,7 @@ import com.karlosprojects.androidkarlosrestaurant.HomeActivity.view.HomeActivity
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
 import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter.SplashScreenPresenter;
-import com.karlosprojects.androidkarlosrestaurant.UpdateInfoActivity;
+import com.karlosprojects.androidkarlosrestaurant.UpdateInfoActivity.view.UpdateInfoActivity;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
