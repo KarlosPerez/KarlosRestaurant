@@ -9,6 +9,7 @@ import com.karlosprojects.androidkarlosrestaurant.MainActivity.View.MainActivity
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
 import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter.SplashScreenPresenter;
+import com.karlosprojects.androidkarlosrestaurant.UpdateInfoActivity;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +44,7 @@ public class SplashScreenRepositoryImpl implements SplashScreenRepository {
                         Common.currentUser = userModel.getResult().get(0);
                         splashScreenPresenter.goToActivity(Common.currentUser, HomeActivity.class);
                     } else {
-                        splashScreenPresenter.goToActivity(Common.currentUser, MainActivity.class);
+                        splashScreenPresenter.goToActivity(Common.currentUser, UpdateInfoActivity.class);
                     }
                 }, throwable -> splashScreenPresenter.showThrowableMessage("[GET USER API]"));
         bindToLifeCycle(disposable);
