@@ -1,11 +1,7 @@
 package com.karlosprojects.androidkarlosrestaurant.SplashScreen.Repository;
 
-import android.content.Intent;
-
 import com.facebook.accountkit.Account;
-import com.karlosprojects.androidkarlosrestaurant.HomeActivity.HomeActivity;
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.View.MainActivity;
+import com.karlosprojects.androidkarlosrestaurant.HomeActivity.view.HomeActivity;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
 import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter.SplashScreenPresenter;
@@ -15,7 +11,6 @@ import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class SplashScreenRepositoryImpl implements SplashScreenRepository {

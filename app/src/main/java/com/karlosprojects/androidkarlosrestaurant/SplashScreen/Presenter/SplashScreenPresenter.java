@@ -1,9 +1,6 @@
 package com.karlosprojects.androidkarlosrestaurant.SplashScreen.Presenter;
 
-import android.app.Activity;
-
 import com.facebook.accountkit.Account;
-import com.karlosprojects.androidkarlosrestaurant.HomeActivity.HomeActivity;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.User;
 
 public interface SplashScreenPresenter {
