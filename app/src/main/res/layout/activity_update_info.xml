@@ -7,7 +7,7 @@
     android:background="@color/divider"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".UpdateInfoActivity">
+    tools:context=".UpdateInfoActivity.view.UpdateInfoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

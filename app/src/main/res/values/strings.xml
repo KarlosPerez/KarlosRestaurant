@@ -15,4 +15,6 @@
     <string name="hint_user_name">Name</string>
     <string name="hint_user_address">Address</string>
     <string name="hint_update">UPDATE</string>
+    <string name="update_information">Update Information</string>
+    <string name="hint_log_out">Sign Out</string>
 </resources>
