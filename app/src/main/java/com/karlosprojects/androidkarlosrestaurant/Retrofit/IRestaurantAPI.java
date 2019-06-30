@@ -2,6 +2,7 @@ package com.karlosprojects.androidkarlosrestaurant.Retrofit;
 
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UpdateUserModel;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
+import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -22,4 +23,7 @@ public interface IRestaurantAPI {
                                                @Field("userName") String userName,
                                                @Field("userAddress") String userAddress,
                                                @Field("fbid") String fbid);
+
+    @GET("restaurant")
+    Observable<RestaurantModel> getRestaurant(@Query("key") String apiKey);
 }
