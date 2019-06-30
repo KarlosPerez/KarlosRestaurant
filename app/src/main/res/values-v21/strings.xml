@@ -5,4 +5,7 @@
     <string name="hint_user_address">Address</string>
     <string name="hint_update">UPDATE</string>
     <string name="hint_log_out">Sign Out</string>
+    <string name="hint_nearby_restaurant">Nearby Restaurant</string>
+    <string name="hint_order_history">Order History</string>
+    <string name="hint_update_info">Update Information</string>
 </resources>

@@ -3,10 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group>
+        <item
+            android:id="@+id/nav_nearby"
+            android:icon="@drawable/ic_restaurant_gray_24dp"
+            android:title="@string/hint_nearby_restaurant" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/nav_order_history"
+            android:icon="@drawable/ic_history_gray_24dp"
+            android:title="@string/hint_order_history" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/nav_update_info"
+            android:icon="@drawable/ic_account_circle_gray_24dp"
+            android:title="@string/hint_update_info" />
+    </group>
+
+    <group>
         <item
             android:id="@+id/nav_log_out"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_exit_to_app_gray_24dp"
             android:title="@string/hint_log_out" />
     </group>
 

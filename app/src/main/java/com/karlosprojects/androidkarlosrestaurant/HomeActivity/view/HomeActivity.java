@@ -1,5 +1,7 @@
 package com.karlosprojects.androidkarlosrestaurant.HomeActivity.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,12 +21,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import dmax.dialog.SpotsDialog;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView txt_user_name, txt_user_phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,13 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        txt_user_name = headerView.findViewById(R.id.txt_user_name);
+        txt_user_phone = headerView.findViewById(R.id.txt_user_phone);
+
+        txt_user_name.setText(Common.currentUser.getName());
+        txt_user_phone.setText(Common.currentUser.getUserPhone());
     }
 
     @Override
@@ -92,6 +105,12 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_log_out) {
             signOut();
+        } else if (id == R.id.nav_nearby) {
+            signOut();
+        } else if (id == R.id.nav_order_history) {
+            signOut();
+        } else if (id == R.id.nav_update_info) {
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,11 +119,20 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void signOut() {
-        Common.currentUser = null;
-        AccountKit.logOut();
-        Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+        AlertDialog confirmDialog = new AlertDialog.Builder(this).setTitle(R.string.hint_log_out)
+                .setMessage("Do you really want to sign out?")
+                .setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton("OK", (dialog, which) -> {
+                    Common.currentUser = null;
+                    AccountKit.logOut();
+                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }).create();
+
+        confirmDialog.show();
     }
+
+
 }
