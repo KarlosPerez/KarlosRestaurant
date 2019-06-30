@@ -14,23 +14,62 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.View.MainActivity;
 import com.karlosprojects.androidkarlosrestaurant.R;
+import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
+import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
+import com.karlosprojects.androidkarlosrestaurant.Services.PicassoImageLoadingService;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.adapter.RestaurantSliderAdapter;
+import com.karlosprojects.androidkarlosrestaurant.model.EventBus.RestaurantLoadEvent;
+import com.karlosprojects.androidkarlosrestaurant.model.Restaurant;
+import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import ss.com.bannerslider.Slider;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView txt_user_name, txt_user_phone;
+
+    @BindView(R.id.banner_slider)
+    Slider banner_slider;
+    @BindView(R.id.recycler_restaurant)
+    RecyclerView recycler_restaurant;
+
+    private IRestaurantAPI iRestaurantAPI;
+    private CompositeDisposable compositeDisposable;
+    AlertDialog dialog;
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +77,6 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +93,49 @@ public class HomeActivity extends AppCompatActivity
 
         txt_user_name.setText(Common.currentUser.getName());
         txt_user_phone.setText(Common.currentUser.getUserPhone());
+
+        initComponents();
+        initView();
+        
+        loadRestaurant();
+    }
+
+    private void loadRestaurant() {
+        dialog.show();
+
+        compositeDisposable.add(iRestaurantAPI.getRestaurant(Common.API_KEY)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<RestaurantModel>() {
+            @Override
+            public void accept(RestaurantModel restaurantModel) throws Exception {
+                //Here, we will use EventBus to send local event set adapter and slider
+                EventBus.getDefault().post(new RestaurantLoadEvent(true, restaurantModel.getResult()));
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                EventBus.getDefault().post(new RestaurantLoadEvent(false, throwable.getMessage()));
+            }
+        }));
+
+    }
+
+    private void initView() {
+        ButterKnife.bind(this);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recycler_restaurant.setLayoutManager(layoutManager);
+        recycler_restaurant.setHasFixedSize(true);
+        recycler_restaurant.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
+    }
+
+    private void initComponents() {
+        dialog = new SpotsDialog.Builder().setContext(this).setCancelable(false).build();
+        iRestaurantAPI = RetrofitClient.getInstance(Common.API_RESTAURANT_ENDPOINT).create(IRestaurantAPI.class);
+        compositeDisposable = new CompositeDisposable();
+
+        Slider.init(new PicassoImageLoadingService());
     }
 
     @Override
@@ -134,5 +207,34 @@ public class HomeActivity extends AppCompatActivity
         confirmDialog.show();
     }
 
+    /*
+     *REGISTER EVENT BUS
+     */
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    //Listen EventBus
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void proccessRestaurantLoadEvent(RestaurantLoadEvent event) {
+        if (event.isSuccess()) {
+            displayBanner(event.getRestaurantList());
+        } else {
+            Toast.makeText(this, "[RESTAURANT LOAD] "+event.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        dialog.dismiss();
+    }
+
+    private void displayBanner(List<Restaurant> restaurantList) {
+        banner_slider.setAdapter(new RestaurantSliderAdapter(restaurantList));
+    }
 }
