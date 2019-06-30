@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/divider"
+    android:orientation="vertical"
     tools:context=".HomeActivity.view.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ss.com.bannerslider.Slider
+        android:id="@+id/banner_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16dp"
+        android:background="@color/divider"
+        android:orientation="vertical"
+        >
+
+        <TextView
+           android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/magnifika"
+            android:textColor="@color/button_color"
+            android:textSize="22sp"/>
+
+    </LinearLayout>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

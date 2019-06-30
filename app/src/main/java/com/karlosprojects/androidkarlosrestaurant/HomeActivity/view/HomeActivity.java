@@ -18,6 +18,7 @@ import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
 import com.karlosprojects.androidkarlosrestaurant.Services.PicassoImageLoadingService;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.adapter.RestaurantListAdapter;
 import com.karlosprojects.androidkarlosrestaurant.adapter.RestaurantSliderAdapter;
 import com.karlosprojects.androidkarlosrestaurant.model.EventBus.RestaurantLoadEvent;
 import com.karlosprojects.androidkarlosrestaurant.model.Restaurant;
@@ -228,10 +229,16 @@ public class HomeActivity extends AppCompatActivity
     public void proccessRestaurantLoadEvent(RestaurantLoadEvent event) {
         if (event.isSuccess()) {
             displayBanner(event.getRestaurantList());
+            displayRestaurant(event.getRestaurantList());
         } else {
             Toast.makeText(this, "[RESTAURANT LOAD] "+event.getMessage(), Toast.LENGTH_SHORT).show();
         }
         dialog.dismiss();
+    }
+
+    private void displayRestaurant(List<Restaurant> restaurantList) {
+        RestaurantListAdapter adapter = new RestaurantListAdapter(this, restaurantList);
+        recycler_restaurant.setAdapter(adapter);
     }
 
     private void displayBanner(List<Restaurant> restaurantList) {
