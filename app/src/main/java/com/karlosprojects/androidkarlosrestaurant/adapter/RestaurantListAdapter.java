@@ -2,6 +2,7 @@ package com.karlosprojects.androidkarlosrestaurant.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.karlosprojects.androidkarlosrestaurant.MenuActivity.MenuActivity;
 import com.karlosprojects.androidkarlosrestaurant.R;
+import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IOnRecyclerViewClickListener;
+import com.karlosprojects.androidkarlosrestaurant.model.EventBus.MenuItemEvent;
 import com.karlosprojects.androidkarlosrestaurant.model.Restaurant;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -46,8 +52,11 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         holder.txt_restaurant_name.setText(new StringBuilder(restaurantList.get(position).getName()));
 
         holder.setListener((view, position1) -> {
-            //Implement later
-            Toast.makeText(context, ""+restaurantList.get(position1).getName(), Toast.LENGTH_SHORT).show();
+            Common.currentRestaurant = restaurantList.get(position1);
+            //Here use postSticky, that mean this event will listen from other activity
+            //it will different with just 'post'
+            EventBus.getDefault().postSticky(new MenuItemEvent(true, restaurantList.get(position1)));
+            context.startActivity(new Intent(context, MenuActivity.class));
         });
     }
 

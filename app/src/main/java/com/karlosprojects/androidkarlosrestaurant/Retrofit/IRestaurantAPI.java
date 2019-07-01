@@ -2,6 +2,7 @@ package com.karlosprojects.androidkarlosrestaurant.Retrofit;
 
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UpdateUserModel;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
+import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;
 
 import io.reactivex.Observable;
@@ -26,4 +27,8 @@ public interface IRestaurantAPI {
 
     @GET("restaurant")
     Observable<RestaurantModel> getRestaurant(@Query("key") String apiKey);
+
+    @GET("menu")
+    Observable<MenuModel> getCategories(@Query("key") String apiKey,
+                                        @Query("restaurantID") int restaurantId);
 }

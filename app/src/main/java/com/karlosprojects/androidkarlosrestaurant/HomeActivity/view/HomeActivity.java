@@ -171,7 +171,7 @@ public class HomeActivity extends AppCompatActivity
                 .setMessage("Do you really want to sign out?")
                 .setNegativeButton("CANCEL", (dialog, which) -> hideProgressDialog())
                 .setPositiveButton("OK", (dialog, which) -> {
-                    Common.currentUser = null;
+                    resetStaticModelVariables();
                     AccountKit.logOut();
                     Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -180,6 +180,11 @@ public class HomeActivity extends AppCompatActivity
                 }).create();
 
         confirmDialog.show();
+    }
+
+    private void resetStaticModelVariables() {
+        Common.currentUser = null;
+        Common.currentRestaurant = null;
     }
 
     @Override
