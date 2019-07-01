@@ -5,16 +5,11 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,17 +18,12 @@ import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
-import com.karlosprojects.androidkarlosrestaurant.HomeActivity.view.HomeActivity;
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UpdateUserModel;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.User;
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
 import com.karlosprojects.androidkarlosrestaurant.R;
-import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
-import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
-import com.karlosprojects.androidkarlosrestaurant.SplashScreen.View.SplashScreen;
 import com.karlosprojects.androidkarlosrestaurant.UpdateInfoActivity.presenter.UpdateInfoActivityPresenter;
 import com.karlosprojects.androidkarlosrestaurant.UpdateInfoActivity.presenter.UpdateInfoActivityPresenterImpl;
-import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+
+import java.util.Objects;
 
 public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoActivityView {
 
@@ -131,7 +121,6 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home) {
-            finish(); //close this activity
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -147,7 +136,7 @@ public class UpdateInfoActivity extends AppCompatActivity implements UpdateInfoA
 
         toolbar.setTitle(getString(R.string.update_information));
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 

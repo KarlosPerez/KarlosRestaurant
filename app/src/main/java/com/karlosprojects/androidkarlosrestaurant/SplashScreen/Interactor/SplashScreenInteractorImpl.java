@@ -7,11 +7,9 @@ import com.karlosprojects.androidkarlosrestaurant.SplashScreen.Repository.Splash
 
 public class SplashScreenInteractorImpl implements SplashScreenInteractor {
 
-    private SplashScreenPresenter splashScreenPresenter;
     private SplashScreenRepository splashScreenRepository;
 
     public SplashScreenInteractorImpl(SplashScreenPresenter splashScreenPresenter) {
-        this.splashScreenPresenter = splashScreenPresenter;
         splashScreenRepository = new SplashScreenRepositoryImpl(splashScreenPresenter);
     }
 

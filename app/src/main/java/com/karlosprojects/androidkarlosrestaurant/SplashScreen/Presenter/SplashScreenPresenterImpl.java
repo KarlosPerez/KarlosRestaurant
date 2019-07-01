@@ -20,7 +20,6 @@ public class SplashScreenPresenterImpl implements SplashScreenPresenter {
 
     @Override
     public void getUserInformation(Account account) {
-        if(isProgressDialogShowing()) splashScreenView.hideProgressDialog();
         splashScreenInteractor.getUserInformation(account);
     }
 
