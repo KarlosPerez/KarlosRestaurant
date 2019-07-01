@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF7B65</color>
     <color name="button_color">@color/colorPrimary</color>
     <color name="divider">#F7F5F4</color>
+
+    <color name="color_price">#616161</color>
 </resources>

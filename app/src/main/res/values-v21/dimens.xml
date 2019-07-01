@@ -3,4 +3,5 @@
     <dimen name="textView_textSize_24sp">24sp</dimen>
     <dimen name="just_1dp">1dp</dimen>
     <dimen name="textView_textSize_16sp">16sp</dimen>
+    <dimen name="notification_badge_size">28dp</dimen>
 </resources>

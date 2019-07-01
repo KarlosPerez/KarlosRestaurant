@@ -22,4 +22,5 @@
     <string name="hint_update_info">Update Information</string>
     <string name="dummy_restaurant_name">Restaurant Dummy</string>
     <string name="dummy_restaurant_address">257 Carianna Cove Trl World</string>
+    <string name="hint_menu_subtitle">By Your Mood Or Preference</string>
 </resources>

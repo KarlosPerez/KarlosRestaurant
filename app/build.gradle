@@ -59,4 +59,7 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Notification bagge
+    implementation 'com.nex3z:notification-badge:1.0.2'
 }
