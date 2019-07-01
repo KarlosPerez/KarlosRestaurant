@@ -46,7 +46,7 @@ public class HomeActivityPresenterImpl implements HomeActivityPresenter {
 
     @Override
     public boolean isProgressDialogShowing() {
-        return false;
+        return homeActivityView.isProgressDialogShowing();
     }
 
     @Override
