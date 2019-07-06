@@ -1,6 +1,7 @@
 package com.karlosprojects.androidkarlosrestaurant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,13 @@ import android.widget.Toast;
 
 import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.foodlist.FoodListActivity;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IOnRecyclerViewClickListener;
 import com.karlosprojects.androidkarlosrestaurant.model.Category;
+import com.karlosprojects.androidkarlosrestaurant.model.EventBus.FoodListEvent;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -47,7 +52,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.setListener(new IOnRecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(context, ""+categoryList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                //Send sticky post event to foodListActivity
+                EventBus.getDefault().postSticky(new FoodListEvent(true, categoryList.get(position)));
+                context.startActivity(new Intent(context, FoodListActivity.class));
             }
         });
     }
