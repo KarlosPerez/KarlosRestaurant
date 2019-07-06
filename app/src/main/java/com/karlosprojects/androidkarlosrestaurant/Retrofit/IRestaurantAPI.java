@@ -2,6 +2,7 @@ package com.karlosprojects.androidkarlosrestaurant.Retrofit;
 
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UpdateUserModel;
 import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
+import com.karlosprojects.androidkarlosrestaurant.model.FoodModel;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;
 
@@ -17,6 +18,10 @@ public interface IRestaurantAPI {
     Observable<UserModel> getUser(@Query("key") String apiKey,
                                   @Query("fbid") String fbid);
 
+    @GET("food")
+    Observable<FoodModel> getFoodOfMenu(@Query("key") String apiKey,
+                                        @Query("menuId") String menuId);
+
     @POST("user")
     @FormUrlEncoded
     Observable<UpdateUserModel> updateUserInfo(@Field("key") String apiKey,
@@ -31,4 +36,6 @@ public interface IRestaurantAPI {
     @GET("menu")
     Observable<MenuModel> getCategories(@Query("key") String apiKey,
                                         @Query("restaurantID") int restaurantId);
+
+
 }
