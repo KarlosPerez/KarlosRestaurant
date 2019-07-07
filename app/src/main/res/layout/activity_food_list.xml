@@ -8,7 +8,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:backgroundTint="@color/divider"
-    tools:context=".foodlist.FoodListActivity">
+    tools:context=".foodlist.view.FoodListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

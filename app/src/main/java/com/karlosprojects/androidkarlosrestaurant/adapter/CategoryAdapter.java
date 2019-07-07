@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
-import com.karlosprojects.androidkarlosrestaurant.foodlist.FoodListActivity;
+import com.karlosprojects.androidkarlosrestaurant.foodlist.view.FoodListActivity;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IOnRecyclerViewClickListener;
 import com.karlosprojects.androidkarlosrestaurant.model.Category;
 import com.karlosprojects.androidkarlosrestaurant.model.EventBus.FoodListEvent;
@@ -49,13 +48,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Picasso.get().load(categoryList.get(position).getImage()).into(holder.img_category);
         holder.txt_category.setText(categoryList.get(position).getName());
 
-        holder.setListener(new IOnRecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                //Send sticky post event to foodListActivity
-                EventBus.getDefault().postSticky(new FoodListEvent(true, categoryList.get(position)));
-                context.startActivity(new Intent(context, FoodListActivity.class));
-            }
+        holder.setListener((view, position1) -> {
+            //Send sticky post event to foodListActivity
+            EventBus.getDefault().postSticky(new FoodListEvent(true, categoryList.get(position1)));
+            context.startActivity(new Intent(context, FoodListActivity.class));
         });
     }
 
