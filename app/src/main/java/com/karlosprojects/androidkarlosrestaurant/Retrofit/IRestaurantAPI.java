@@ -20,7 +20,7 @@ public interface IRestaurantAPI {
 
     @GET("food")
     Observable<FoodModel> getFoodOfMenu(@Query("key") String apiKey,
-                                        @Query("menuId") String menuId);
+                                        @Query("menuId") int menuId);
 
     @POST("user")
     @FormUrlEncoded

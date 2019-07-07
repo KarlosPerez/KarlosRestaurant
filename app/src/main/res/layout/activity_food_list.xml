@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
@@ -39,6 +40,7 @@
 
         <TextView
             android:textSize="@dimen/textView_textSize_24sp"
+            android:text="@string/hint_our_specialized"
             android:fontFamily="@font/magnifika"
             android:textColor="@color/button_color"
             android:layout_width="wrap_content"

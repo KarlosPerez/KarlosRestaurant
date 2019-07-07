@@ -24,4 +24,8 @@
     <string name="dummy_restaurant_address">257 Carianna Cove Trl World</string>
     <string name="hint_menu_subtitle">By Your Mood Or Preference</string>
     <string name="dummy_category_name">CHINESSE BEGETARIAN</string>
+    <string name="dummy_food_name">Chicken Biryani</string>
+    <string name="dummy_food_price">$180</string>
+    <string name="money_sign">$</string>
+    <string name="hint_our_specialized">Our Specialized</string>
 </resources>
