@@ -3,6 +3,7 @@ package com.karlosprojects.androidkarlosrestaurant.MenuActivity.presenter;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.interactor.MenuActivityInteractor;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.interactor.MenuActivityInteractorImpl;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.view.MenuActivityView;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 
 public class MenuActivityPresenterImpl implements MenuActivityPresenter {
@@ -68,6 +69,16 @@ public class MenuActivityPresenterImpl implements MenuActivityPresenter {
     public void loadRestaurantBanner(String imageUrl) {
         if (menuActivityView.isProgressDialogShowing()) hideProgressDialog();
         menuActivityView.loadRestaurantBanner(imageUrl);
+    }
+
+    @Override
+    public void showCartItemCountOnBadge(String itemCount) {
+        menuActivityView.showCartItemCountOnBadge(itemCount);
+    }
+
+    @Override
+    public void getCountCartByRestaurant(CartDataSource cartDataSource) {
+        menuActivityInteractor.getCountCartByRestaurant(cartDataSource);
     }
 
     @Override

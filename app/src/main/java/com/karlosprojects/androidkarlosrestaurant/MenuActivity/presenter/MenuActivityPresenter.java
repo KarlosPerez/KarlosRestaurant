@@ -1,5 +1,6 @@
 package com.karlosprojects.androidkarlosrestaurant.MenuActivity.presenter;
 
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 
 public interface MenuActivityPresenter {
@@ -16,6 +17,8 @@ public interface MenuActivityPresenter {
 
     void showMenuRestaurantById(MenuModel menuModel);
     void loadRestaurantBanner(String imageUrl);
+    void showCartItemCountOnBadge(String itemCount);
+    void getCountCartByRestaurant(CartDataSource cartDataSource);
 
     void registerEvent();
     void unregisterEvent();

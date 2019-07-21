@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +21,9 @@ import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 import com.karlosprojects.androidkarlosrestaurant.Utils.SpaceItemDecoration;
 import com.karlosprojects.androidkarlosrestaurant.adapter.CategoryAdapter;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDatabase;
+import com.karlosprojects.androidkarlosrestaurant.database.LocalCartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
@@ -41,6 +45,7 @@ public class MenuActivity extends AppCompatActivity implements MenuActivityView 
     AlertDialog alertDialog;
     CategoryAdapter categoryAdapter;
     MenuActivityPresenter menuActivityPresenter;
+    CartDataSource cartDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class MenuActivity extends AppCompatActivity implements MenuActivityView 
 
     private void initComponents() {
         ButterKnife.bind(this);
+        menuActivityPresenter = new MenuActivityPresenterImpl(this);
         alertDialog = new SpotsDialog.Builder()
                 .setCancelable(false)
                 .setContext(this)
@@ -72,7 +78,9 @@ public class MenuActivity extends AppCompatActivity implements MenuActivityView 
 
         recycler_category.setLayoutManager(layoutManager);
         recycler_category.addItemDecoration(new SpaceItemDecoration(8));
-        menuActivityPresenter = new MenuActivityPresenterImpl(this);
+
+        cartDataSource = new LocalCartDataSource(CartDatabase.getInstance(this).cartDao());
+        getCountCartByRestaurant(cartDataSource);
     }
 
     //This code will select item view type if item is last, it will set full width on Grid
@@ -132,6 +140,16 @@ public class MenuActivity extends AppCompatActivity implements MenuActivityView 
     @Override
     public void loadRestaurantBanner(String imageUrl) {
         Picasso.get().load(imageUrl).into(img_restaurant);
+    }
+
+    @Override
+    public void showCartItemCountOnBadge(String itemCount) {
+        badge.setText(itemCount);
+    }
+
+    @Override
+    public void getCountCartByRestaurant(CartDataSource cartDataSource) {
+        menuActivityPresenter.getCountCartByRestaurant(cartDataSource);
     }
 
     @Override

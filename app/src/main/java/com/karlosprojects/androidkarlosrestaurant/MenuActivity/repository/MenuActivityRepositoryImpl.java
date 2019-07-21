@@ -4,12 +4,14 @@ import com.karlosprojects.androidkarlosrestaurant.MenuActivity.presenter.MenuAct
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.IRestaurantAPI;
 import com.karlosprojects.androidkarlosrestaurant.Retrofit.RetrofitClient;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.model.EventBus.MenuItemEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -40,6 +42,35 @@ public class MenuActivityRepositoryImpl implements MenuActivityRepository {
         } else {
             showUnsuccessMessage("[RESTAURANT LOAD] Unsuccess");
         }
+    }
+
+    @Override
+    public void getCountCartByRestaurant(CartDataSource cartDataSource) {
+
+        cartDataSource.countItemCart(Common.currentUser.getUserPhone(),
+                Common.currentRestaurant.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        displayCartItemCountOnBadge(String.valueOf(integer));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showThrowableMessage("[COUNT CART] "+e.getMessage());
+                    }
+                });
+    }
+
+    private void displayCartItemCountOnBadge(String itemCount) {
+        menuActivityPresenter.showCartItemCountOnBadge(itemCount);
     }
 
     private void displayMenu(int restaurantId) {

@@ -3,6 +3,7 @@ package com.karlosprojects.androidkarlosrestaurant.MenuActivity.interactor;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.presenter.MenuActivityPresenter;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.repository.MenuActivityRepository;
 import com.karlosprojects.androidkarlosrestaurant.MenuActivity.repository.MenuActivityRepositoryImpl;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 
 public class MenuActivityInteractorImpl implements MenuActivityInteractor {
 
@@ -10,6 +11,11 @@ public class MenuActivityInteractorImpl implements MenuActivityInteractor {
 
     public MenuActivityInteractorImpl(MenuActivityPresenter menuActivityPresenter) {
         menuActivityRepository = new MenuActivityRepositoryImpl(menuActivityPresenter);
+    }
+
+    @Override
+    public void getCountCartByRestaurant(CartDataSource cartDataSource) {
+        menuActivityRepository.getCountCartByRestaurant(cartDataSource);
     }
 
     @Override

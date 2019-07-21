@@ -1,7 +1,9 @@
 package com.karlosprojects.androidkarlosrestaurant.MenuActivity.interactor;
 
-public interface MenuActivityInteractor {
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 
+public interface MenuActivityInteractor {
+    void getCountCartByRestaurant(CartDataSource cartDataSource);
     void detachDisposable();
 
     void registerEvent();
