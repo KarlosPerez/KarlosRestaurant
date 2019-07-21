@@ -1,5 +1,6 @@
 package com.karlosprojects.androidkarlosrestaurant.database;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -12,6 +13,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
+@Dao
 public interface CartDao {
     /**
      * Only load cart by restaraunt ID because each restaurant id will hace order receipt different

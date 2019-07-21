@@ -33,6 +33,9 @@ public class CartItem {
     @ColumnInfo (name = "foodAddon")
     private String foodAddon;
 
+    @ColumnInfo (name = "foodSize")
+    private String foodSize;
+
     @ColumnInfo (name = "foodExtraPrice")
     private double foodExtraPrice;
 
@@ -109,5 +112,13 @@ public class CartItem {
 
     public void setFoodExtraPrice(double foodExtraPrice) {
         this.foodExtraPrice = foodExtraPrice;
+    }
+
+    public String getFoodSize() {
+        return foodSize;
+    }
+
+    public void setFoodSize(String foodSize) {
+        this.foodSize = foodSize;
     }
 }
