@@ -31,6 +31,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListActiv
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    FoodListAdapter adapter;
+
     AlertDialog alertDialog;
     private FoodListActivityPresenter foodListActivityPresenter;
 
@@ -38,6 +40,8 @@ public class FoodListActivity extends AppCompatActivity implements FoodListActiv
     protected void onDestroy() {
         if(foodListActivityPresenter != null)
             foodListActivityPresenter.detachDisposable();
+        if (adapter != null)
+            adapter.onStop();
         super.onDestroy();
     }
 
@@ -102,7 +106,7 @@ public class FoodListActivity extends AppCompatActivity implements FoodListActiv
 
     @Override
     public void showFoodList(FoodModel foodList) {
-        FoodListAdapter adapter = new FoodListAdapter(FoodListActivity.this, foodList.getResult());
+        adapter = new FoodListAdapter(FoodListActivity.this, foodList.getResult());
         recycler_food_list.setAdapter(adapter);
     }
 

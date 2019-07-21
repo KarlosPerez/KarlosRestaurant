@@ -9,6 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.karlosprojects.androidkarlosrestaurant.R;
+import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
+import com.karlosprojects.androidkarlosrestaurant.database.CartDatabase;
+import com.karlosprojects.androidkarlosrestaurant.database.CartItem;
+import com.karlosprojects.androidkarlosrestaurant.database.LocalCartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IFoodDetailOnCartClickListener;
 import com.karlosprojects.androidkarlosrestaurant.model.Food;
 import com.squareup.picasso.Picasso;
@@ -20,15 +25,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodListViewHolder> {
 
-    Context context;
-    List<Food> foodList;
+    private Context context;
+    private List<Food> foodList;
+    private CompositeDisposable compositeDisposable;
+    private CartDataSource cartDataSource;
+
+    public void onStop() {
+        compositeDisposable.clear();
+    }
 
     public FoodListAdapter(Context context, List<Food> foodList) {
         this.context = context;
         this.foodList = foodList;
+        compositeDisposable = new CompositeDisposable();
+        cartDataSource = new LocalCartDataSource(CartDatabase.getInstance(context).cartDao());
     }
 
     @NonNull
@@ -50,7 +66,25 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodLi
             if(isDetail) {
                 Toast.makeText(context, "Detail Click", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Cart Clic", Toast.LENGTH_SHORT).show();
+                //Cart create
+                CartItem cartItem = new CartItem();
+                cartItem.setFoodId(foodList.get(position).getId());
+                cartItem.setFoodName(foodList.get(position).getName());
+                cartItem.setFoodPrice(foodList.get(position).getPrice());
+                cartItem.setFoodImage(foodList.get(position).getImage());
+                cartItem.setFoodQuantity(1);
+                cartItem.setUserPhone(Common.currentUser.getUserPhone());
+                cartItem.setRestaurantId(Common.currentRestaurant.getId());
+                cartItem.setFoodSize("NORMAL");
+                cartItem.setFoodAddon("NORMAL");
+                cartItem.setFoodExtraPrice(0.0);
+
+                compositeDisposable.add(cartDataSource.insertOrReplaceAll(cartItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show(),
+                        throwable -> Toast.makeText(context, "[ADD CART] "+throwable.getMessage(), Toast.LENGTH_SHORT).show())
+                );
             }
         });
     }
@@ -75,13 +109,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodLi
 
         IFoodDetailOnCartClickListener listener;
 
-        public void setListener(IFoodDetailOnCartClickListener listener) {
+        void setListener(IFoodDetailOnCartClickListener listener) {
             this.listener = listener;
         }
 
         Unbinder unbinder;
 
-        public FoodListViewHolder(@NonNull View itemView) {
+        FoodListViewHolder(@NonNull View itemView) {
 
             super(itemView);
             unbinder = ButterKnife.bind(this, itemView);
