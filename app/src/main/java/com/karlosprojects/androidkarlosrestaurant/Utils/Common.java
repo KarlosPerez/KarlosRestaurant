@@ -1,6 +1,6 @@
 package com.karlosprojects.androidkarlosrestaurant.Utils;
 
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.User;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.MainActivity.Model.User;
 import com.karlosprojects.androidkarlosrestaurant.model.Restaurant;
 
 public class Common {

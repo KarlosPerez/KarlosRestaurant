@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
-import com.karlosprojects.androidkarlosrestaurant.foodlist.view.FoodListActivity;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.foodlist.view.FoodListActivity;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IOnRecyclerViewClickListener;
 import com.karlosprojects.androidkarlosrestaurant.model.Category;
 import com.karlosprojects.androidkarlosrestaurant.model.EventBus.FoodListEvent;

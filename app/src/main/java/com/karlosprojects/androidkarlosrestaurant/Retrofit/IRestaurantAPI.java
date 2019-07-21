@@ -1,7 +1,7 @@
 package com.karlosprojects.androidkarlosrestaurant.Retrofit;
 
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UpdateUserModel;
-import com.karlosprojects.androidkarlosrestaurant.MainActivity.Model.UserModel;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.MainActivity.Model.UpdateUserModel;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.MainActivity.Model.UserModel;
 import com.karlosprojects.androidkarlosrestaurant.model.FoodModel;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;

@@ -9,7 +9,7 @@
     app:alignItems="stretch"
     app:flexWrap="wrap"
     app:justifyContent="center"
-    tools:context=".MainActivity.View.MainActivity">
+    tools:context=".activitiy.MainActivity.View.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

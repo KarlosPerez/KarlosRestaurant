@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/divider"
     android:orientation="vertical"
-    tools:context=".HomeActivity.view.HomeActivity"
+    tools:context=".activitiy.HomeActivity.view.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
     <ss.com.bannerslider.Slider

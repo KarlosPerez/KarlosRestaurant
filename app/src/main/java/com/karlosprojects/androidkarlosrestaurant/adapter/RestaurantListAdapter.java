@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.karlosprojects.androidkarlosrestaurant.MenuActivity.view.MenuActivity;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.MenuActivity.view.MenuActivity;
 import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IOnRecyclerViewClickListener;
