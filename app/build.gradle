@@ -62,4 +62,8 @@ dependencies {
 
     //Notification bagge
     implementation 'com.nex3z:notification-badge:1.0.2'
+
+    //Room persistence
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+    implementation 'androidx.room:room-rxjava2:2.1.0'
 }
