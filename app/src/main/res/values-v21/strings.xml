@@ -14,4 +14,8 @@
     <string name="dummy_category_name">CHINESSE BEGETARIAN</string>
     <string name="money_sign">$</string>
     <string name="hint_our_specialized">Our Specialized</string>
+    <string name="food_detail_txt_dummy_price">200</string>
+    <string name="food_detail_txt_size">Size</string>
+    <string name="food_detail_txt_add_on">Add On</string>
+    <string name="food_detail_txt_description">Description</string>
 </resources>

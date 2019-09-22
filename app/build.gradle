@@ -66,4 +66,7 @@ dependencies {
     //Room persistence
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
     implementation 'androidx.room:room-rxjava2:2.1.0'
+
+    //Expandable Layout
+    implementation 'com.github.florent37:expansionpanel:1.2.2'
 }
