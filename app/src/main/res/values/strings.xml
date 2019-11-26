@@ -32,4 +32,6 @@
     <string name="food_detail_txt_size">Size</string>
     <string name="food_detail_txt_add_on">Add On</string>
     <string name="food_detail_txt_description">Description</string>
+    <string name="food_detail_btn_view_cart">VIEW CART</string>
+    <string name="sauce_item">Sauce 1</string>
 </resources>

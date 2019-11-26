@@ -1,6 +1,7 @@
 package com.karlosprojects.androidkarlosrestaurant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import android.widget.Toast;
 
 import com.karlosprojects.androidkarlosrestaurant.R;
 import com.karlosprojects.androidkarlosrestaurant.Utils.Common;
+import com.karlosprojects.androidkarlosrestaurant.activitiy.fooddetail.view.FoodDetailActivity;
 import com.karlosprojects.androidkarlosrestaurant.database.CartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.database.CartDatabase;
 import com.karlosprojects.androidkarlosrestaurant.database.CartItem;
 import com.karlosprojects.androidkarlosrestaurant.database.LocalCartDataSource;
 import com.karlosprojects.androidkarlosrestaurant.interfaces.IFoodDetailOnCartClickListener;
+import com.karlosprojects.androidkarlosrestaurant.model.EventBus.FoodDetailEvent;
 import com.karlosprojects.androidkarlosrestaurant.model.Food;
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +25,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusBuilder;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -64,7 +71,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodLi
 
         holder.setListener((view, position1, isDetail) -> {
             if(isDetail) {
-                Toast.makeText(context, "Detail Click", Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, FoodDetailActivity.class));
+                EventBus.getDefault().postSticky(new FoodDetailEvent(true, foodList.get(position)));
             } else {
                 //Cart create
                 CartItem cartItem = new CartItem();

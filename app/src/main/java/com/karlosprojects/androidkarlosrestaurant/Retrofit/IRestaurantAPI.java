@@ -2,9 +2,11 @@ package com.karlosprojects.androidkarlosrestaurant.Retrofit;
 
 import com.karlosprojects.androidkarlosrestaurant.activitiy.MainActivity.Model.UpdateUserModel;
 import com.karlosprojects.androidkarlosrestaurant.activitiy.MainActivity.Model.UserModel;
+import com.karlosprojects.androidkarlosrestaurant.model.AddonModel;
 import com.karlosprojects.androidkarlosrestaurant.model.FoodModel;
 import com.karlosprojects.androidkarlosrestaurant.model.MenuModel;
 import com.karlosprojects.androidkarlosrestaurant.model.RestaurantModel;
+import com.karlosprojects.androidkarlosrestaurant.model.SizeModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -21,6 +23,14 @@ public interface IRestaurantAPI {
     @GET("food")
     Observable<FoodModel> getFoodOfMenu(@Query("key") String apiKey,
                                         @Query("menuId") int menuId);
+
+    @GET("size")
+    Observable<SizeModel> getSizeOfFood(@Query("key") String apiKey,
+                                        @Query("foodIf") int foodId);
+
+    @GET("addon")
+    Observable<AddonModel> getAddonOfFood(@Query("key") String apiKey,
+                                          @Query("foodIf") int foodId);
 
     @POST("user")
     @FormUrlEncoded
